@@ -104,7 +104,6 @@ double dcindex;
     
     //Konash I/O setting
     [Konashi pinModeAll:0b11111110];
-    [Konashi i2cMode:KONASHI_I2C_ENABLE];
     
     //flash device's LED
     [Konashi digitalWrite:PIO1 value:HIGH];
@@ -134,6 +133,8 @@ double dcindex;
 {
     NSLog(@"Start check sensor.");
 
+    [Konashi i2cMode:KONASHI_I2C_ENABLE];
+    
     [Si114x setup];
     [Adxl345 setup];
     //[Si7013 initialize];
@@ -158,6 +159,7 @@ double dcindex;
 - (void)stopCheckSensor
 {
     if([checkSensorTimer isValid]) [checkSensorTimer invalidate];
+    [Konashi i2cMode:KONASHI_I2C_DISABLE];
 }
 
 //***********************************************************
